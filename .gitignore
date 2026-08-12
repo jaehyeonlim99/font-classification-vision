@@ -6,9 +6,9 @@ venv/
 .env.*
 
 # generated datasets and fonts
-dataset/
-datasets/
-data/
+/dataset/
+/datasets/
+/data/
 fonts/
 *.ttf
 *.otf
