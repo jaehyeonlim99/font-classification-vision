@@ -24,7 +24,7 @@
 - 문서 이미지에서 text patch를 추출하고 filtering하는 전처리 logic 구현
 - Patch 단위 예측 결과를 image-level result로 통합하는 Patch Voting 방식 적용
 - 학습/검증 결과를 비교하며 모델 성능 확인
-- 최종적으로 validation accuracy 약 96.5%, real64 데이터 기준 accuracy 1.0 수준 확인
+- 최종적으로 validation accuracy 약 96.5%를 확인하고, 별도 real64 테스트셋에서는 accuracy 1.0 수준의 결과를 확인
 
 ## 결과 이미지
 
@@ -108,5 +108,6 @@ python src/train/train_resnet18.py
 - 생성된 dataset
 - TTF font file
 - model checkpoint
+- 최종 발표자료와 원본 real/synthetic image dataset
 
 모델 checkpoint를 공개할 경우 font license와 dataset 공개 가능 범위를 먼저 확인하고, 대용량 파일은 Git LFS로 관리하는 것이 좋습니다.
