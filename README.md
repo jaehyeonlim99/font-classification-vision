@@ -16,6 +16,14 @@
 - patch-level prediction 후 majority voting으로 image-level font 결정
 - Gradio 기반 demo app 구성
 
+## My Contribution
+
+- synthetic font image 및 patch dataset 생성 pipeline 구성
+- real document image에서 text patch를 추출하고 filtering하는 전처리 logic 구현
+- ResNet18 기반 font classifier 학습 코드 구성
+- patch-level prediction을 image-level result로 통합하는 voting 방식 적용
+- Gradio 기반 demo app으로 실제 이미지 업로드 후 폰트 분류 결과를 확인할 수 있게 구성
+
 ## Tech Stack
 
 - Python
