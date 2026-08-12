@@ -26,6 +26,16 @@
 - 학습/검증 결과를 비교하며 모델 성능 확인
 - 최종적으로 validation accuracy 약 96.5%, real64 데이터 기준 accuracy 1.0 수준 확인
 
+## 결과 이미지
+
+### Confusion Matrix
+
+![Confusion Matrix](results/confusion_matrix_heatmap.png)
+
+### Class Metrics
+
+![Class Metrics](results/class_metrics_bar_chart.png)
+
 ## Tech Stack
 
 - Python
