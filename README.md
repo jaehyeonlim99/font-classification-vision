@@ -1,28 +1,29 @@
 # Font Classification Vision
 
-문서 이미지에서 폰트를 분류하기 위한 ResNet18 기반 computer vision 프로젝트입니다. synthetic font image와 real document patch를 활용하고, 전체 이미지에서 text patch를 추출한 뒤 patch voting으로 최종 폰트를 예측하는 구조로 설계했습니다.
+Computer vision project for classifying document images into 8 font classes. The project uses a ResNet18 classifier trained with synthetic and real image patches, then aggregates patch-level predictions with voting to improve image-level font classification.
 
 ## Problem
 
-문서 전체 이미지를 한 번에 분류하면 배경, 여백, 이미지 품질, 글자 밀도 차이 때문에 폰트 특징이 희석될 수 있습니다. 이 프로젝트는 문서 이미지를 patch 단위로 나누고, 텍스트가 포함된 patch만 선별해 폰트별 특징을 더 안정적으로 학습/추론하는 것을 목표로 했습니다.
+Classifying a full document image directly can be unstable because background, margins, noise, text size, and layout may hide the actual font characteristics. This project approaches the task by extracting text-focused patches from document images and classifying them at patch level before producing the final image-level prediction.
 
 ## Solution
 
-- 8종 font classification task 정의
-- synthetic dataset 생성으로 학습 데이터 확보
-- real document image에서 text patch 추출
-- synthetic/real patch dataset merge
-- ImageNet pretrained ResNet18 fine-tuning
-- patch-level prediction 후 majority voting으로 image-level font 결정
-- Gradio 기반 demo app 구성
+- Defined an 8-class font classification task
+- Built synthetic font images to compensate for limited real data
+- Combined synthetic and real patch datasets
+- Trained an ImageNet-pretrained ResNet18 model
+- Applied patch-level prediction and majority voting for image-level classification
+- Built a Gradio demo for checking classification results on real images
 
 ## My Contribution
 
-- synthetic font image 및 patch dataset 생성 pipeline 구성
-- real document image에서 text patch를 추출하고 filtering하는 전처리 logic 구현
-- ResNet18 기반 font classifier 학습 코드 구성
-- patch-level prediction을 image-level result로 통합하는 voting 방식 적용
-- Gradio 기반 demo app으로 실제 이미지 업로드 후 폰트 분류 결과를 확인할 수 있게 구성
+- Selected and trained a ResNet18-based model for 8-class font classification
+- Built the training data composition by combining synthetic and real images
+- Used an approximate synthetic-to-real ratio of 4:1 to increase training coverage while keeping real data in the loop
+- Implemented patch extraction and filtering logic for document images
+- Applied patch voting to aggregate patch-level predictions into a final image-level result
+- Compared training and validation results to verify model performance
+- Confirmed final performance around 96.5% validation accuracy and 1.0 accuracy on the real64 evaluation set
 
 ## Tech Stack
 
@@ -60,11 +61,11 @@
 
 | Step | Description |
 | --- | --- |
-| Data generation | TTF font를 이용해 synthetic text image 생성 |
-| Patch extraction | 큰 문서 이미지를 일정 크기의 patch로 분할 |
-| Text patch filtering | 밝기, edge ratio, connected component 조건으로 텍스트 patch 선별 |
-| Training | ResNet18 classifier fine-tuning |
-| Inference | patch별 예측 결과를 voting해 최종 font 결정 |
+| Data generation | Generate synthetic text images from font files |
+| Patch extraction | Split document images into fixed-size patches |
+| Text patch filtering | Select text-heavy patches using brightness, edge, and component conditions |
+| Training | Fine-tune a ResNet18 classifier |
+| Inference | Vote across patch predictions to determine the final font class |
 
 ## Quick Start
 
@@ -73,7 +74,7 @@ pip install -r requirements.txt
 python app/app.py
 ```
 
-학습을 다시 수행하려면 dataset을 준비한 뒤 아래 스크립트를 실행합니다.
+To retrain the model, prepare the dataset first and run:
 
 ```bash
 python src/train/train_resnet18.py
@@ -92,9 +93,9 @@ Included:
 
 Excluded:
 
-- `.venv`
-- generated dataset
+- virtual environments
+- generated datasets
 - TTF font files
-- model checkpoint by default
+- model checkpoints by default
 
-Model checkpoint 공개가 필요하면 font license와 dataset 공개 범위를 확인한 뒤 Git LFS로 관리하는 것이 좋습니다.
+If model checkpoints are published later, font license and dataset sharing policy should be reviewed first. Large checkpoint files should be managed with Git LFS.
