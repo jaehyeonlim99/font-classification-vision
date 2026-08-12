@@ -1,0 +1,28 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+
+# generated datasets and fonts
+dataset/
+datasets/
+data/
+fonts/
+*.ttf
+*.otf
+
+# model weights
+models/
+*.pt
+*.pth
+*.onnx
+
+# generated outputs
+runs/
+outputs/
+
+# OS
+Thumbs.db
+Desktop.ini
